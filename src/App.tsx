@@ -4,6 +4,7 @@ import { generateMnemonic } from "bip39";
 import { SolanaWallet } from './components/SolWallet';
 import { EthWallet } from './components/EthWallet';
 import PrimaryButton from './components/buttons/PrimaryButton';
+import Navbar from './components/Navbar';
 
 
 function App() {
@@ -18,9 +19,13 @@ function App() {
 
   return (
     <>
-     <div className='pt-20 pl-20'>
+    <div>
+      <div>
+        <Navbar/>
+      </div>
+      <div className='pt-20 pl-20'>
         <div className='text-3xl font-bold'>
-          Web based Wallet
+          Welcome to Nova, your own web based wallet
         </div>
         <div className='flex items-center pt-5'>
           <PrimaryButton onClick={handleMnemonics}>Create Seed Phrase</PrimaryButton>
@@ -32,6 +37,7 @@ function App() {
           {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
         </div>
      </div>
+    </div>
     </>
   )
 }
