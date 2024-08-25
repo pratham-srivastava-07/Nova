@@ -16,7 +16,7 @@ function App() {
     setMnemonic(mnemonics);
   }
 
-
+  const mnemonicWords: any[] = mnemonic.split(' ')
   return (
     <>
     <div>
@@ -33,6 +33,7 @@ function App() {
         <div>
           {mnemonic && <EthWallet mnemonic={mnemonic}/>}
         </div>
+        <div>{mnemonic && mnemonicWords.map((word => <div>{word}</div>))}</div>
         <div>
           {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
         </div>
