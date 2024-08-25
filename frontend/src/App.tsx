@@ -33,7 +33,11 @@ function App() {
         <div>
           {mnemonic && <EthWallet mnemonic={mnemonic}/>}
         </div>
-        <div>{mnemonic && mnemonicWords.map((word => <div>{word}</div>))}</div>
+        <div>{mnemonic && mnemonicWords.map((word => <div>
+            <div className='flex items-center pb-2'>
+                <div className='border border-black p-2 flex items-center'>{word}</div>
+          </div>
+        </div>))}</div>
         <div>
           {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
         </div>

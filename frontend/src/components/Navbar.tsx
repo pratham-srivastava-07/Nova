@@ -9,11 +9,11 @@ export default function Navbar() {
         <div className="text-4xl pl-20 font-bold flex items-center">
            Nova  
         </div>
-       <div className="flex items-center justify-center space-x-2">
+       <div className="flex items-center justify-center space-x-5">
             <div className="text-md font-semibold cursor-pointer">
                 SignOut
             </div>
-            <div>
+            <div className="pr-5">
                 <NormalButton onClick={toggleTheme}>
                     {theme === 'light' ? '🌙' : '☀️'}
                 </NormalButton>
