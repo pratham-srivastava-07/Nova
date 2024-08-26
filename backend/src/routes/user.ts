@@ -74,5 +74,5 @@ userRouter.post("/signin", async (req, res) => {
         id: existingUser.id,
     }, JWT_SECRET)
 
-    res.status(200).json({message: "User logged in"})
+    res.status(200).json({message: "User logged in", token: token})
 })

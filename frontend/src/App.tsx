@@ -5,6 +5,7 @@ import { SolanaWallet } from './components/SolWallet';
 import { EthWallet } from './components/EthWallet';
 import PrimaryButton from './components/buttons/PrimaryButton';
 import Navbar from './components/Navbar';
+import Signup from './pages/Signup';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
   const mnemonicWords: any[] = mnemonic.split(' ')
   return (
     <>
-    <div>
+    {/* <div>
       <div>
         <Navbar/>
       </div>
@@ -42,7 +43,8 @@ function App() {
           {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
         </div>
      </div>
-    </div>
+    </div> */}
+    <Signup/>
     </>
   )
 }
