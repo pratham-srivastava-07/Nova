@@ -3,6 +3,7 @@ import { mnemonicToSeed } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl"
+import NewButton from "./buttons/NewButton";
 
 export function SolanaWallet({ mnemonic }: {mnemonic: any}) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,11 +23,11 @@ export function SolanaWallet({ mnemonic }: {mnemonic: any}) {
     }
 
     return <div>
-        <button onClick={handleClick}>
-            Add Sol wallet
-        </button>
-        {publicKeys.map((p: any) => <div>
-            {p.toBase58()}
-        </div>)}
+        <div className="flex justify-start">
+            <NewButton onClick={handleClick}>Add Sol wallet</NewButton>
+        </div>
+            {publicKeys.map((p: any) => <div>
+               Sol - {p.toBase58()}
+            </div>)}
     </div>
 }
