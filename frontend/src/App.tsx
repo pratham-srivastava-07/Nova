@@ -35,17 +35,20 @@ function App() {
           <div className='text-3xl font-bold'>
             Welcome to Nova, your own web based wallet
           </div>
-          <div className='flex items-center pt-5'>
+          <div className='flex items-center justify-between pt-5'>
             <PrimaryButton onClick={handleMnemonics}>Generate Seed Phrase</PrimaryButton>
-          </div>
-          <div>
-            {mnemonic && <EthWallet mnemonic={mnemonic}/>}
-          </div>
-          <div>{mnemonic && mnemonicWords.map((word => <div>
-              <div className='flex items-center pb-2'>
-                  <div className='border border-black p-2 flex items-center'>{word}</div>
+            <div>
+              {mnemonic && <EthWallet mnemonic={mnemonic}/>}
             </div>
-          </div>))}</div>
+          </div>
+          
+          <div>{mnemonic && mnemonicWords.map((word, index) => (
+            index % 4 === 0 && (
+              <div key={index} className='flex flex-wrap pb-2'>{mnemonicWords.slice(index, index+4).map((w, i) => (
+                <div key={i} className='w-1/4'>{w}</div>
+              ))}</div>
+            )
+          ))}</div>
           <div>
             {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
           </div>
