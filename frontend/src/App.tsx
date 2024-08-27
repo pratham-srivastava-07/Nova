@@ -6,6 +6,8 @@ import { EthWallet } from './components/EthWallet';
 import PrimaryButton from './components/buttons/PrimaryButton';
 import Navbar from './components/Navbar';
 import Signup from './pages/Signup';
+import { Route, Routes } from 'react-router-dom';
+import Signin from './pages/Signin';
 
 
 function App() {
@@ -20,31 +22,38 @@ function App() {
   const mnemonicWords: any[] = mnemonic.split(' ')
   return (
     <>
-    {/* <div>
-      <div>
-        <Navbar/>
-      </div>
-      <div className='pt-20 pl-20'>
-        <div className='text-3xl font-bold'>
-          Welcome to Nova, your own web based wallet
-        </div>
-        <div className='flex items-center pt-5'>
-          <PrimaryButton onClick={handleMnemonics}>Create Seed Phrase</PrimaryButton>
-        </div>
+    
+    {/* <Signup/> */}
+    <Routes>
+      <Route path='/signup' element={<Signup/>} />
+      <Route path='/' element={
         <div>
-          {mnemonic && <EthWallet mnemonic={mnemonic}/>}
+        <div>
+          <Navbar/>
         </div>
-        <div>{mnemonic && mnemonicWords.map((word => <div>
-            <div className='flex items-center pb-2'>
-                <div className='border border-black p-2 flex items-center'>{word}</div>
+        <div className='pt-20 pl-20'>
+          <div className='text-3xl font-bold'>
+            Welcome to Nova, your own web based wallet
           </div>
-        </div>))}</div>
-        <div>
-          {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
-        </div>
-     </div>
-    </div> */}
-    <Signup/>
+          <div className='flex items-center pt-5'>
+            <PrimaryButton onClick={handleMnemonics}>Generate Seed Phrase</PrimaryButton>
+          </div>
+          <div>
+            {mnemonic && <EthWallet mnemonic={mnemonic}/>}
+          </div>
+          <div>{mnemonic && mnemonicWords.map((word => <div>
+              <div className='flex items-center pb-2'>
+                  <div className='border border-black p-2 flex items-center'>{word}</div>
+            </div>
+          </div>))}</div>
+          <div>
+            {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
+          </div>
+       </div>
+      </div>
+      } />
+      <Route path='/login' element={<Signin/>} />
+    </Routes>
     </>
   )
 }

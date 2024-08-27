@@ -3,25 +3,18 @@ import PrimaryButton from "../components/buttons/PrimaryButton";
 import Input from "../components/Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../providers/AuthProviders";
 
-export default function Signup() {
-    const [name, setName] = useState("");
+
+export default function Signin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
-    // const  {isAuthenticated, setIsAuthenticated} = useAuth();
+
     async function getData() {
-        const res = await axios.post('http://localhost:3000/api/v1/user/signup', {
+        const res = await axios.post('http://localhost:3000/api/v1/user/signin', {
             email: email,
             password,
-            name
-        },
-    {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+        })
         navigate("/")
         localStorage.setItem("token", res.data.token);
     }
@@ -32,9 +25,6 @@ export default function Signup() {
             <div className="flex-1 p-4 pl-10">Signup page</div>
             <div className="flex-1">
                 <div className="pt-4">
-                    <Input label="Name" type={"text"} placeholder={"Your Name"} onChange={(e: any)=> {
-                        setName(e.target.value);
-                    }}></Input>
                     <Input label="Email" type={"email"} placeholder={"Your Email"} onChange={(e: any)=> {
                         setEmail(e.target.value);
                     }}></Input>
@@ -43,7 +33,7 @@ export default function Signup() {
                     }}></Input>
                 </div>
                 <div className="pt-4">
-                    <PrimaryButton onClick={getData}>Signup</PrimaryButton>
+                    <PrimaryButton onClick={getData}>Signin</PrimaryButton>
                 </div>
             </div>
         </div>
