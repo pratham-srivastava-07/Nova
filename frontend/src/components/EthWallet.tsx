@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { mnemonicToSeed } from "bip39";
 import { Wallet, HDNodeWallet } from "ethers";
-import NewButton from "./buttons/NewButton";
+
+import { Button } from "./ui/button";
 
 export const EthWallet = ({mnemonic}: {mnemonic: any}) => {
    const [index, setIndex] = useState(0);
@@ -22,7 +23,8 @@ export const EthWallet = ({mnemonic}: {mnemonic: any}) => {
 
    return <div>
         <div className="flex justify-start">
-            <NewButton onClick={handleClick}>Add Eth Wallet</NewButton>
+            <Button variant={"outline"} onClick={handleClick}>Add Eth Wallet</Button>
+            {/* <button>Add Eth Wallet</button> */}
         </div>
         {address.map((publicKey: any) => <div>Eth - {publicKey}</div>)}
    </div>

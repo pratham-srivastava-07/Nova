@@ -10,6 +10,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Signin from './pages/Signin';
 import { useAuth } from './providers/AuthProviders';
 
+import { Button } from './components/ui/button';
 
 
 function App() {
@@ -42,15 +43,15 @@ function App() {
             Welcome to Nova, your own web based wallet
           </div>
           <div className='flex items-center pt-5'>
-            {isAuthenticated && <PrimaryButton onClick={handleMnemonics}>Generate Seed Phrase</PrimaryButton>}
+            {isAuthenticated && <Button variant={"secondary"} onClick={handleMnemonics}>Generate Seed Phrase</Button>}
           </div>
           <div>
-              {!isAuthenticated ? <>
+              {!isAuthenticated && <>
                   <div className="flex space-x-3 pt-10">
                     <PrimaryButton onClick={() => navigate("/signup")}>Signup</PrimaryButton>
                     <PrimaryButton onClick={() => navigate("/login")}>Login</PrimaryButton>
                   </div>
-              </>:  <div></div>}
+              </>}
           </div>
          
           {/* <div>{mnemonic && mnemonicWords.map((word, index) => (

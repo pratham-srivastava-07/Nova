@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProviders";
 import { useTheme } from "../providers/ThemProvider";
 import NormalButton from "./buttons/NormalButton";
+import { ModeToggle } from "./buttons/ModeToggle";
 
 
 
 export default function Navbar() {
 
-    const {theme, toggleTheme} = useTheme()
+    // const {theme, toggleTheme} = useTheme()
     const {isAuthenticated, setIsAuthenticated} = useAuth();
     const navigate = useNavigate()
     function handleLogout() {
@@ -24,9 +25,7 @@ export default function Navbar() {
                {isAuthenticated && <NormalButton onClick={handleLogout}>LogOut</NormalButton>}
             </div>
             <div className="pr-5">
-                <NormalButton onClick={toggleTheme}>
-                    {theme === 'light' ? '🌙' : '☀️'}
-                </NormalButton>
+                <ModeToggle/>
             </div>
        </div>
     </div>
