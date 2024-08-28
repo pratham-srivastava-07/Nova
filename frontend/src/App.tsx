@@ -9,8 +9,12 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Signin from './pages/Signin';
 import { useAuth } from './providers/AuthProviders';
 import { Button } from './components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
-
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../src/components/ui/accordion"
 
 function App() {
   const [mnemonic, setMnemonic] = useState("");
@@ -44,27 +48,30 @@ function App() {
           </div>
           <div className='flex items-center pt-5'>
                 {isAuthenticated &&
-                  <DropdownMenu open={dropDown} onOpenChange={setDropDown}>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" onClick={handleMnemonics}>Generate Seed Phrase</Button>
-                    </DropdownMenuTrigger>
-                    {mnemonic && (
-                      <DropdownMenuContent className="w-56">
-                        <div className='font-bold mb-2 px-4'>Your Seed Phrase:</div>
-                        <DropdownMenuSeparator />
-                        <div className='px-4'>
+                  <Button variant="outline" onClick={handleMnemonics}>Generate Seed Phrase</Button>
+                }
+              </div>
+              <div className='pt-5'>
+                {mnemonic && (
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger>Your Seed Phrase</AccordionTrigger>
+                      <AccordionContent>
+                        <div className=' p-4 rounded-md shadow-md max-w-6xl'>
                           {mnemonicWords.map((word, index) => (
-                            <div key={index} className='flex flex-wrap pb-2'>
-                              {index % 4 === 0 && mnemonicWords.slice(index, index + 4).map((w, i) => (
-                                <div key={i} className='w-1/4'>{w}</div>
-                              ))}
-                            </div>
+                            index % 4 === 0 && (
+                              <div key={index} className='flex flex-wrap pb-2 pt-4 pl-28'>
+                                {mnemonicWords.slice(index, index + 4).map((w, i) => (
+                                  <div key={i} className='w-1/4'>{w}</div>
+                                ))}
+                              </div>
+                            )
                           ))}
                         </div>
-                      </DropdownMenuContent>
-                    )}
-                  </DropdownMenu>
-                }
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
               </div>
           <div>
               {!isAuthenticated && <>
