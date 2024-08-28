@@ -3,13 +3,11 @@ import './App.css'
 import { generateMnemonic } from "bip39";
 import { SolanaWallet } from './components/SolWallet';
 import { EthWallet } from './components/EthWallet';
-import PrimaryButton from './components/buttons/PrimaryButton';
 import Navbar from './components/Navbar';
 import Signup from './pages/Signup';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Signin from './pages/Signin';
 import { useAuth } from './providers/AuthProviders';
-
 import { Button } from './components/ui/button';
 
 
@@ -48,8 +46,8 @@ function App() {
           <div>
               {!isAuthenticated && <>
                   <div className="flex space-x-3 pt-10">
-                    <PrimaryButton onClick={() => navigate("/signup")}>Signup</PrimaryButton>
-                    <PrimaryButton onClick={() => navigate("/login")}>Login</PrimaryButton>
+                    <Button onClick={() => navigate("/signup")}>Signup</Button>
+                    <Button onClick={() => navigate("/login")}>Login</Button>
                   </div>
               </>}
           </div>
@@ -84,7 +82,7 @@ function App() {
                 {mnemonic && <EthWallet mnemonic={mnemonic}/>}
             </div>
             <div className='pt-5'>
-              {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
+                {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
             </div>
           </div>
        </div>

@@ -4,10 +4,12 @@ import { derivePath } from "ed25519-hd-key";
 import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 
 export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [publicKeys, setPublicKeys] = useState<string[]>([]);
+  const {toast} = useToast()
 
   async function handleClick() {
     try {
@@ -25,6 +27,10 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
       // Update state
       setCurrentIndex(currentIndex + 1);
       setPublicKeys([...publicKeys, keypair.publicKey.toBase58()]);
+      toast({
+        title: "Added Wallet",
+        description: "Added SOL wallet!"
+      })
     } catch (error) {
       console.error("Error generating Solana wallet:", error);
     }

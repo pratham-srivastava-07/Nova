@@ -5,6 +5,7 @@ import './index.css'
 import { ThemeProvider } from './providers/ThemProvider.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './providers/AuthProviders.tsx'
+import { Toaster } from './components/ui/toaster.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
           <App />
+          <Toaster/>
         </ThemeProvider>
       </AuthProvider>
    </BrowserRouter>

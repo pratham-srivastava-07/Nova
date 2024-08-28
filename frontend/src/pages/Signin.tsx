@@ -1,9 +1,10 @@
 import { useState } from "react";
 import PrimaryButton from "../components/buttons/PrimaryButton";
-import Input from "../components/Input";
+// import Input from "../components/Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import {Input} from "../components/ui/input"
+import { Button } from "../components/ui/button";
 
 export default function Signin() {
     const [email, setEmail] = useState("");
@@ -25,15 +26,13 @@ export default function Signin() {
             <div className="flex-1 p-4 pl-10">Signup page</div>
             <div className="flex-1">
                 <div className="pt-4">
-                    <Input label="Email" type={"email"} placeholder={"Your Email"} onChange={(e: any)=> {
-                        setEmail(e.target.value);
-                    }}></Input>
-                    <Input label="Password" type={"password"} placeholder={"Your Password"} onChange={(e: any)=> {
-                        setPassword(e.target.value)
-                    }}></Input>
+                    <div className="p-3">
+                        <Input type="email" placeholder="Email" onChange={(e: any)=> setEmail(e.target.value)} />
+                    </div>
+                    <Input type="password" placeholder="Password" onChange={(e: any)=> setPassword(e.target.value)} />
                 </div>
                 <div className="pt-4">
-                    <PrimaryButton onClick={getData}>Signin</PrimaryButton>
+                    <Button onClick={getData}>Signin</Button>
                 </div>
             </div>
         </div>

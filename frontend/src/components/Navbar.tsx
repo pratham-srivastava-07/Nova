@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProviders";
-import { useTheme } from "../providers/ThemProvider";
-import NormalButton from "./buttons/NormalButton";
 import { ModeToggle } from "./buttons/ModeToggle";
+import { Button } from "./ui/button";
 
 
 
@@ -22,7 +21,7 @@ export default function Navbar() {
         </div>
        <div className="flex items-center justify-center space-x-5">
             <div className="text-md font-semibold cursor-pointer flex space-x-3" onClick={()=> {}}>
-               {isAuthenticated && <NormalButton onClick={handleLogout}>LogOut</NormalButton>}
+               {isAuthenticated && <Button variant={"outline"} onClick={handleLogout}>LogOut</Button>}
             </div>
             <div className="pr-5">
                 <ModeToggle/>
