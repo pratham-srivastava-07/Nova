@@ -74,10 +74,12 @@ function App() {
                 )}
               </div>
           <div>
+            <h1>{isAuthenticated.toString()}</h1>
               {!isAuthenticated && <>
                   <div className="flex space-x-3 pt-10">
                     <Button onClick={() => navigate("/signup")}>Signup</Button>
                     <Button onClick={() => navigate("/login")}>Login</Button>
+
                   </div>
               </>}
           </div>

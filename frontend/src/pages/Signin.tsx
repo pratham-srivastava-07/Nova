@@ -1,23 +1,27 @@
 import { useState } from "react";
-import PrimaryButton from "../components/buttons/PrimaryButton";
+// import PrimaryButton from "../components/buttons/PrimaryButton";
 // import Input from "../components/Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {Input} from "../components/ui/input"
 import { Button } from "../components/ui/button";
+import { useAuth } from "../providers/AuthProviders";
 
 export default function Signin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
+    const {setIsAuthenticated} = useAuth()
 
     async function getData() {
         const res = await axios.post('http://localhost:3000/api/v1/user/signin', {
             email: email,
             password,
         })
+        setIsAuthenticated(true);
         navigate("/")
         localStorage.setItem("token", res.data.token);
+
     }
 
 
