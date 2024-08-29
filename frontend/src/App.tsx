@@ -16,18 +16,16 @@ import {
   AccordionTrigger,
 } from "../src/components/ui/accordion"
 
+
 function App() {
   const [mnemonic, setMnemonic] = useState("");
-  const [dropDown, setDropDown] = useState(false);
   const {isAuthenticated} = useAuth()
-  const [position, setPosition] = useState("bottom")
   const navigate = useNavigate()
 
 
   function handleMnemonics() {
     const mnemonics = generateMnemonic();
     setMnemonic(mnemonics);
-    setDropDown(true)
   }
 
   const mnemonicWords: any[] = mnemonic.split(' ')
@@ -74,7 +72,6 @@ function App() {
                 )}
               </div>
           <div>
-            <h1>{isAuthenticated.toString()}</h1>
               {!isAuthenticated && <>
                   <div className="flex space-x-3 pt-10">
                     <Button onClick={() => navigate("/signup")}>Signup</Button>
@@ -83,33 +80,14 @@ function App() {
                   </div>
               </>}
           </div>
-         
-      {/* { mnemonic && (
-                  <div className='pt-5 '>
-                    <div className='bg-gray-100 p-4 rounded-md shadow-md max-w-6xl'>
-                      <div className='font-bold mb-2'>Your Seed Phrase:</div>
-                      <div>
-                        {mnemonic && mnemonicWords.map((word, index) => (
-                          index % 4 === 0 && (
-                            <div key={index} className='flex flex-wrap pb-2 pt-4 pl-28'>
-                              {mnemonicWords.slice(index, index + 4).map((w, i) => (
-                                <div key={i} className='w-1/4'>{w}</div>
-                              ))}
-                            </div>
-                          )
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )} */}
-          <div className="flex items-center space-x-4">
+          <div className="mt-20">
             <div className='pt-5'>
                 {mnemonic && <EthWallet mnemonic={mnemonic}/>}
             </div>
             <div className='pt-5'>
                 {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
             </div>
-          </div>
+         </div>
        </div>
       </div>
       } />

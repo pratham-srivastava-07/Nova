@@ -21,7 +21,6 @@ export default function Signin() {
         setIsAuthenticated(true);
         navigate("/")
         localStorage.setItem("token", res.data.token);
-
     }
 
 

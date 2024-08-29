@@ -3,6 +3,7 @@ import {Input} from "../components/ui/input"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
+import { useAuth } from "../providers/AuthProviders";
 
 
 export default function Signup() {
@@ -10,6 +11,7 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
+    const {setIsAuthenticated} = useAuth();
 
     async function getData() {
         const res = await axios.post('http://localhost:3000/api/v1/user/signup', {
@@ -22,6 +24,7 @@ export default function Signup() {
             'Content-Type': 'application/json'
         }
     })
+        setIsAuthenticated(true);
         navigate("/")
         localStorage.setItem("token", res.data.token);
     }

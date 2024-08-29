@@ -8,8 +8,8 @@ import { useToast } from "./ui/use-toast";
 
 export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [publicKeys, setPublicKeys] = useState<string[]>([]);
-  const {toast} = useToast()
+  const [wallets, setWallets] = useState<any[]>([]);
+  const { toast } = useToast();
 
   async function handleClick() {
     try {
@@ -24,13 +24,19 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
       const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
       const keypair = Keypair.fromSecretKey(secret);
 
-      // Update state
+      // Convert Uint8Array to hex string for the private key
+      const privateKeyHex = Array.from(secret)
+        .map(byte => byte.toString(16).padStart(2, '0'))
+        .join('');
+
+      // Update state with both public and private keys
+      setWallets([...wallets, { publicKey: keypair.publicKey.toBase58(), privateKey: privateKeyHex }]);
       setCurrentIndex(currentIndex + 1);
-      setPublicKeys([...publicKeys, keypair.publicKey.toBase58()]);
+      
       toast({
         title: "Added Wallet",
-        description: "Added SOL wallet!"
-      })
+        description: "Added SOL wallet!",
+      });
     } catch (error) {
       console.error("Error generating Solana wallet:", error);
     }
@@ -43,8 +49,11 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
           Add Sol Wallet
         </Button>
       </div>
-      {publicKeys.map((p, index) => (
-        <div key={index}>Sol - {p}</div>
+      {wallets.map((wallet, index) => (
+        <div className="mt-3" key={index}>
+          <div>Sol Address: {wallet.publicKey}</div>
+          <div>Private Key: {wallet.privateKey}</div>
+        </div>
       ))}
     </div>
   );
