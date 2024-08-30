@@ -5,11 +5,14 @@ import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@radix-ui/react-accordion";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [wallets, setWallets] = useState<any[]>([]);
   const { toast } = useToast();
+  const [isPrivateKeyVisible, setPrivateKeyVisible] = useState(false);
 
   async function handleClick() {
     try {
@@ -50,11 +53,33 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
         </Button>
       </div>
       {wallets.map((wallet, index) => (
-        <div className="mt-3" key={index}>
-          <div>Sol Address: {wallet.publicKey}</div>
-          <div>Private Key: {wallet.privateKey}</div>
+  <Accordion type="single" collapsible className="w-full mt-3 pl-5" key={index}>
+    <AccordionItem value={`item-${index}`}>
+      <AccordionTrigger><Button>{`Wallet ${index + 1}`}</Button></AccordionTrigger>
+      <AccordionContent>
+        <div className="p-4 rounded-md shadow-md max-w-6xl">
+          <div className="mb-2">
+            <strong>Sol Address:</strong> {wallet.publicKey}
+          </div>
+          <div className="relative ml-2 flex">
+                      <button
+                        type="button"
+                        onClick={() => setPrivateKeyVisible(!isPrivateKeyVisible)}
+                        className="absolute right-0 top-1/2 transform -translate-y-1/2"
+                      >
+                        {isPrivateKeyVisible ? <FaEyeSlash /> : <FaEye />}
+                      </button>
+                      <span className="font-bold text-md">Private Key:</span>
+                      <span className="ml-2">
+                        {isPrivateKeyVisible ? wallet.privateKey : '•••••••••••••••••••••••••••••'}
+                      </span>
+            </div>
         </div>
-      ))}
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+))}
+
     </div>
   );
 }

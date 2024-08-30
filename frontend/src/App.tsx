@@ -56,7 +56,7 @@ function App() {
                       <AccordionTrigger>Your Seed Phrase</AccordionTrigger>
                       <AccordionContent>
                         <div className=' p-4 rounded-md shadow-md max-w-6xl'>
-                          {mnemonicWords.map((word, index) => (
+                          {mnemonicWords.map((_word, index) => (
                             index % 4 === 0 && (
                               <div key={index} className='flex flex-wrap pb-2 pt-4 pl-28'>
                                 {mnemonicWords.slice(index, index + 4).map((w, i) => (
