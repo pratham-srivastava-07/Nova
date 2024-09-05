@@ -45,8 +45,8 @@ function App() {
             Welcome to Nova, your own web based wallet
           </div>
           <div className='flex items-center pt-5'>
-                {isAuthenticated &&
-                  <Button variant="outline" onClick={handleMnemonics}>Generate Seed Phrase</Button>
+                {isAuthenticated === true ?
+                  <Button variant="outline" onClick={handleMnemonics}>Generate Seed Phrase</Button> : <div></div>
                 }
               </div>
               <div className='pt-5'>
@@ -72,7 +72,7 @@ function App() {
                 )}
               </div>
           <div>
-              {!isAuthenticated && <>
+              {isAuthenticated === false && <>
                   <div className="flex space-x-3 pt-10">
                     <Button onClick={() => navigate("/signup")}>Signup</Button>
                     <Button onClick={() => navigate("/login")}>Login</Button>
@@ -80,14 +80,16 @@ function App() {
                   </div>
               </>}
           </div>
-          <div className="mt-20">
+          <div>
+            {isAuthenticated && <div className="mt-20">
             <div className='pt-5'>
                 {mnemonic && <EthWallet mnemonic={mnemonic}/>}
             </div>
             <div className='pt-5'>
                 {mnemonic && <SolanaWallet mnemonic={mnemonic}/>}
             </div>
-         </div>
+         </div>}
+          </div>
        </div>
       </div>
       } />

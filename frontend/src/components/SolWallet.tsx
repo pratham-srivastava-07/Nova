@@ -12,7 +12,6 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [wallets, setWallets] = useState<any[]>([]);
   const { toast } = useToast();
-  const [isPrivateKeyVisible, setPrivateKeyVisible] = useState(false);
 
   async function handleClick() {
     try {
@@ -45,11 +44,33 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
     }
   }
 
+  function handleDeletion(i: number) {
+    if(i >= 0 && i < wallets.length) {
+        const newWallets = wallets.filter((_, walletIndex) => walletIndex !== i);
+        setWallets(newWallets);
+
+        toast({
+          title: "Deleted Wallet",
+          description: `Deleted Wallet ${i+1 }`,
+        });
+    }
+  }
+
+  function togglePrivateKeyVisibility(index: number) {
+    const updatedWallets = wallets.map((wallet, walletIndex) => 
+      walletIndex === index ? { ...wallet, isPrivateKeyVisible: !wallet.isPrivateKeyVisible } : wallet
+    );
+    setWallets(updatedWallets);
+  }
+
   return (
     <div>
-      <div className="flex justify-start">
+      <div className="flex justify-start items-center">
         <Button variant={"outline"} onClick={handleClick}>
           Add Sol Wallet
+        </Button>
+        <Button variant={"outline"} onClick={() => handleDeletion(wallets.length - 1)} disabled={wallets.length === 0}>
+          Delete Last Wallet
         </Button>
       </div>
       {wallets.map((wallet, index) => (
@@ -62,18 +83,22 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
             <strong>Sol Address:</strong> {wallet.publicKey}
           </div>
           <div className="relative ml-2 flex">
-                      <button
-                        type="button"
-                        onClick={() => setPrivateKeyVisible(!isPrivateKeyVisible)}
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2"
-                      >
-                        {isPrivateKeyVisible ? <FaEyeSlash /> : <FaEye />}
-                      </button>
-                      <span className="font-bold text-md">Private Key:</span>
-                      <span className="ml-2">
-                        {isPrivateKeyVisible ? wallet.privateKey : '•••••••••••••••••••••••••••••'}
-                      </span>
-            </div>
+                  <button
+                    type="button"
+                    onClick={() => togglePrivateKeyVisibility(index)}
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2"
+                  >
+                    {wallet.isPrivateKeyVisible ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                  <span className="font-bold text-md">Private Key:</span>
+                  <span className="ml-2">
+                    {wallet.isPrivateKeyVisible ? wallet.privateKey : '•••••••••••••••••••••••••••••'}
+                  </span>
+                 
+          </div>
+          <Button variant="outline" onClick={() => handleDeletion(index)} className="mt-2">
+               Delete Wallet {index + 1}
+          </Button>
         </div>
       </AccordionContent>
     </AccordionItem>
