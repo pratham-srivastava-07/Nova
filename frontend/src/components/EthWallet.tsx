@@ -40,23 +40,24 @@ export const EthWallet = ({ mnemonic }: { mnemonic: any }) => {
   }
 
   function handleDeletion(idx: number) {
-    const newWallets = wallets.filter((_, walletIndex) => walletIndex !== idx);
-    setWallets(newWallets);
-    setIndex(newWallets.length > 0 ? newWallets.length - 1 : 0); // Adjust index after deletion
+    if(idx >= 0 && idx < wallets.length) {
+      const updatedWallets = wallets.filter((_, walletIndex) => walletIndex !== idx)
+      setWallets(updatedWallets);
 
-    toast({
-      title: "Deleted Wallet",
-      description: `Deleted Wallet ${idx + 1}`,
-    });
+      toast({
+        title: "Deleted Wallet",
+        description: `Deleted Eth Wallet ${idx + 1}`,
+      });
+    }
   }
 
   return (
     <div>
-      <div className="flex justify-start items-center">
+      <div className="flex justify-start items-center space-x-3">
         <Button variant={"outline"} onClick={handleClick}>
           Add Eth Wallet
         </Button>
-        <Button variant={"destructive"} onClick={() => handleDeletion(index)} disabled={wallets.length === 0}>Delete Last Wallet</Button>
+        <Button variant={"destructive"} onClick={() => handleDeletion(wallets.length - 1)} disabled={wallets.length === 0}>Delete Last Wallet</Button>
       </div>
       {wallets.map((wallet, idx) => (
         <Accordion type="single" collapsible className="w-full mt-3 pl-5" key={idx}>

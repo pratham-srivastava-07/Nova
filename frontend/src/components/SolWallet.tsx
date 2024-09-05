@@ -51,7 +51,7 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
 
         toast({
           title: "Deleted Wallet",
-          description: `Deleted Wallet ${i+1 }`,
+          description: `Deleted Sol Wallet ${i+1 }`,
         });
     }
   }
@@ -65,11 +65,11 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
 
   return (
     <div>
-      <div className="flex justify-start items-center">
+      <div className="flex justify-start items-center space-x-3">
         <Button variant={"outline"} onClick={handleClick}>
           Add Sol Wallet
         </Button>
-        <Button variant={"outline"} onClick={() => handleDeletion(wallets.length - 1)} disabled={wallets.length === 0}>
+        <Button variant={"destructive"} onClick={() => handleDeletion(wallets.length - 1)} disabled={wallets.length === 0}>
           Delete Last Wallet
         </Button>
       </div>
@@ -96,7 +96,7 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
                   </span>
                  
           </div>
-          <Button variant="outline" onClick={() => handleDeletion(index)} className="mt-2">
+          <Button variant="destructive" onClick={() => handleDeletion(index)} className="mt-2">
                Delete Wallet {index + 1}
           </Button>
         </div>
