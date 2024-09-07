@@ -78,7 +78,7 @@ export const EthWallet = ({ mnemonic }: { mnemonic: any }) => {
                     {wallet.isPrivateKeyVisible ? <FaEyeSlash /> : <FaEye />}
                   </button>
                   {/* Conditionally render private key */}
-                  <h1 className="font-bold text-md pr-3">Private Key:</h1>
+                  <h1 className="font-bold text-md mr-3">Private Key:</h1>
                   <span className="ml-2">
                     {wallet.isPrivateKeyVisible ? wallet.privateKey : '********************************************************'}
                   </span>
