@@ -1,4 +1,4 @@
-import SignIn from "@/pages/Signin";
+import SignIn from "@/pages/Signin/Signin";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
