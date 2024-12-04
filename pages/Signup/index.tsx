@@ -37,7 +37,7 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      await axios.post("https://nova-wallet.vercel.app/api/user/signup", {
+      await axios.post("https://nova-wallet-iota.vercel.app/api/user/signup", {
         name,
         email,
         password,
