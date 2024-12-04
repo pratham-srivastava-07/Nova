@@ -16,7 +16,7 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
-    "@solana/web3.js": "^1.95.7",
+    "@solana/web3.js": "^1.95.8",
     "@types/bcrypt": "^5.0.2",
     "@types/dotenv": "^8.2.3",
     "@types/jsonwebtoken": "^9.0.7",
