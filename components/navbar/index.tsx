@@ -1,19 +1,19 @@
 "use client"
 
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/providers/auth";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@radix-ui/react-navigation-menu";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "../buttons/mode-toggle";
 import { Button } from "../ui/button";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Navbar() {
-  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const {data: session} = useSession()
   const router = useRouter()
-  function handleLogout() {
-    setIsAuthenticated(false);
-    router.push('/')
-    localStorage.removeItem("token");
+
+  async function handleLogout() {
+    await signOut({callbackUrl: "/"});
   }
 
   return (
@@ -34,19 +34,20 @@ export default function Navbar() {
               <ModeToggle />
             </NavigationMenuItem>
 
-            {isAuthenticated && (
+            {session && (
               <NavigationMenuItem>
-                <Button 
-                  variant="outline" 
-                  onClick={handleLogout}
-                  className={cn(
-                    "transition-all duration-300 ease-in-out",
-                    "hover:bg-destructive/10 hover:text-destructive",
-                    "focus:ring-2 focus:ring-destructive/50"
-                  )}
-                >
-                  Log Out
-                </Button>
+                <Link href={'/api/auth/signout'}>
+                  <Button 
+                    variant="outline" 
+                    className={cn(
+                      "transition-all duration-300 ease-in-out",
+                      "hover:bg-destructive/10 hover:text-destructive",
+                      "focus:ring-2 focus:ring-destructive/50"
+                    )}
+                  >
+                    Log Out
+                  </Button>
+                </Link>
               </NavigationMenuItem>
             )}
           </NavigationMenuList>

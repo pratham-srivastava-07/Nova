@@ -110,7 +110,7 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
           <div className="space-x-2">
             <Button 
               onClick={handleAddWallet} 
-              className="hover:bg-green-100 transition-colors"
+              className="hover:opacity-80 transition-opacity"
             >
               <FaPlusCircle className="mr-2" /> Add Wallet
             </Button>
@@ -138,9 +138,9 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
                 value={`wallet-${index}`} 
                 className="border rounded-lg"
               >
-                <AccordionTrigger className="px-4 hover:bg-gray-50 transition-colors">
+                <AccordionTrigger className="px-4  transition-colors">
                   <div className="flex items-center space-x-2">
-                    <span className="font-semibold">Wallet {index + 1}</span>
+                    <div className="font-semibold h-10">Wallet {index + 1}</div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -149,7 +149,7 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
                       <div>
                         <h3 className="font-bold">Public Address</h3>
                         <div className="flex items-center space-x-2">
-                          <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                          <code className=" px-2 py-1 rounded text-sm">
                             {wallet.publicKey}
                           </code>
                           <Button 
@@ -172,8 +172,8 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
                             wallet.isPrivateKeyVisible ? "text-black" : "text-gray-500"
                           )}>
                             {wallet.isPrivateKeyVisible 
-                              ? wallet.privateKey 
-                              : '*'.repeat(wallet.privateKey.length)}
+                              ? <div>{ wallet.privateKey } <br /></div>
+                              : '*'.repeat(wallet.privateKey.length/2)}
                           </code>
                           <Button 
                             variant="ghost" 

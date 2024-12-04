@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import axios from "axios";
 import {
+  FaUser,
   FaEnvelope,
   FaLock,
   FaEye,
@@ -21,44 +22,38 @@ import {
 } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 
-export default function SignIn() {
+export default function Signup() {
   const router = useRouter();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Handle sign-in submission
-  const handleSignIn = async (e: React.FormEvent) => {
+  // Handle signup submission
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
+      await axios.post("http://localhost:3000/api/user/signup", {
+        name,
         email,
         password,
       });
 
-      if (result?.error) {
-        toast({
-          title: "Sign In Failed",
-          description: result.error,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Sign In Successful",
-          description: "Welcome back to Nova Wallet",
-          variant: "default",
-        });
-        router.push("/");
-      }
-    } catch (error) {
       toast({
-        title: "Error",
-        description: "An unexpected error occurred",
+        title: "Signup Successful",
+        description: "You can now log in to Nova Wallet",
+        variant: "default",
+      });
+      router.push("/signin");
+    } catch (error: any) {
+      console.error("Signup error:", error.response?.data || error.message);
+      toast({
+        title: "Signup Failed",
+        description: error.response?.data?.message || "An unexpected error occurred",
         variant: "destructive",
       });
     } finally {
@@ -80,7 +75,19 @@ export default function SignIn() {
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSignIn} className="space-y-4">
+          <form onSubmit={handleSignup} className="space-y-4">
+            <div className="relative">
+              <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="pl-10"
+                required
+                disabled={isLoading}
+              />
+            </div>
             <div className="relative">
               <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -114,16 +121,16 @@ export default function SignIn() {
               </button>
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing In..." : "Sign In"}
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </Button>
             <div className="text-center text-sm text-muted-foreground mt-4">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <a
-                href="/signup"
+                href="/signin"
                 className="text-primary hover:underline"
                 tabIndex={isLoading ? -1 : 0}
               >
-                Sign Up
+                Sign In
               </a>
             </div>
           </form>

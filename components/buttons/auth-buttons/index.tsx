@@ -9,7 +9,7 @@ export default function AuthButtons() {
   return (
     <div className="flex justify-center space-x-4">
       <Button onClick={() => router.push('/signup')}>Sign Up</Button>
-      <Button onClick={() => router.push('/login')} variant="outline">Log In</Button>
+      <Button onClick={() => router.push('/signin')} variant="outline">Log In</Button>
     </div>
   )
 }

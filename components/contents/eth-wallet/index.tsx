@@ -87,12 +87,11 @@ export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
   };
 
   return (
-    <Card
-     className="w-full max-w-4xl mx-auto">
+    <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>Ethereum Wallet Generator</span>
-          <div className="space-x-2">
+          <div className="flex space-x-2">
             <Button 
               onClick={handleAddWallet} 
               className="hover:bg-green-100 transition-colors"
@@ -125,7 +124,7 @@ export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
               >
                 <AccordionTrigger className="px-4 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center space-x-2">
-                    <span className="font-semibold">Wallet {idx + 1}</span>
+                    <div className="font-semibold">Wallet {idx + 1}</div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -134,7 +133,7 @@ export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
                       <div>
                         <h3 className="font-bold">Address</h3>
                         <div className="flex items-center space-x-2">
-                          <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                          <code className="px-2 py-1 rounded text-sm overflow-hidden text-ellipsis">
                             {wallet.address}
                           </code>
                           <Button 
@@ -153,7 +152,7 @@ export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
                         <h3 className="font-bold">Private Key</h3>
                         <div className="flex items-center space-x-2">
                           <code className={cn(
-                            "bg-gray-100 px-2 py-1 rounded text-sm",
+                            "bg-gray-100 px-2 py-1 rounded text-sm max-w-1/2 overflow-hidden text-ellipsis",
                             wallet.isPrivateKeyVisible ? "text-black" : "text-gray-500"
                           )}>
                             {wallet.isPrivateKeyVisible 
