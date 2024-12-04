@@ -5,16 +5,13 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@radix-u
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "../buttons/mode-toggle";
 import { Button } from "../ui/button";
-import { signOut, useSession } from "next-auth/react";
+import {  useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Navbar() {
   const {data: session} = useSession()
   const router = useRouter()
 
-  async function handleLogout() {
-    await signOut({callbackUrl: "/"});
-  }
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">

@@ -1,7 +1,14 @@
 
 import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "./db";
-
+import { JWT } from "next-auth/jwt";
+import { Session } from "next-auth";
+interface User {
+    id: string;
+    name: string | null;
+    email: string;
+    // Add other fields from your user model as needed
+  }
 export const authOptions = {
     providers: [
       CredentialsProvider({
@@ -11,9 +18,10 @@ export const authOptions = {
             password: { label: "Password", type: "password", required: true }
           },
           // TODO: User credentials type from next-aut
-          async authorize(credentials: any) {
-            // Do zod validation, OTP validation here
-            // const hashedPassword = await bcrypt.hash(credentials.password, 10);
+          async authorize(credentials) {
+            if (!credentials || typeof credentials.email !== 'string' || typeof credentials.password !== 'string') {
+                return null;
+              }
             const existingUser = await db.user.findFirst({
                 where: {
                     email: credentials.email
@@ -42,15 +50,15 @@ export const authOptions = {
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async jwt({ token, user }: any) {
+        async jwt({ token, user }: { token: JWT, user?: User }) {
             if (user) {
               token.id = user.id;
+              token.email = user.email
             }
             return token;
           },
-          async session({ session, token }: any) {
+          async session({ session }: { session: Session, token: JWT }) {
             session.user = {
-              id: token.id,
               ...session.user,
             };
             return session;

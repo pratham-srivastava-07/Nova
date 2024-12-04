@@ -20,6 +20,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
+import { AxiosError } from "axios";
 
 export default function SignIn() {
   const router = useRouter();
@@ -55,12 +56,14 @@ export default function SignIn() {
         });
         router.push("/");
       }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
+    } catch (e) {
+        if(e instanceof AxiosError) {
+          toast({
+            title: "Error",
+            description: "An unexpected error occurred",
+            variant: "destructive",
+          });
+        }
     } finally {
       setIsLoading(false);
     }
@@ -117,7 +120,7 @@ export default function SignIn() {
               {isLoading ? "Signing In..." : "Sign In"}
             </Button>
             <div className="text-center text-sm text-muted-foreground mt-4">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <a
                 href="/signup"
                 className="text-primary hover:underline"

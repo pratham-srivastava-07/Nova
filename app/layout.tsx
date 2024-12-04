@@ -41,7 +41,7 @@ export default function RootLayout({
             >
             <Navbar />
             {children}
-            {/* <BuilderCredit /> */}
+            <BuilderCredit />
             <Toaster />
           </ThemeProvider>
         </Providers>

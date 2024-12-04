@@ -128,7 +128,7 @@ export function SolanaWallet({ mnemonic }: { mnemonic: string }) {
       <CardContent>
         {wallets.length === 0 ? (
           <div className="text-center text-gray-500 py-4">
-            No wallets generated yet. Click "Add Wallet" to start.
+            No wallets generated yet. Click &quot;Add Wallet&quot; to start.
           </div>
         ) : (
           <Accordion type="single" collapsible className="space-y-3">

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import {
   FaUser,
   FaEnvelope,
@@ -46,16 +46,27 @@ export default function Signup() {
       toast({
         title: "Signup Successful",
         description: "You can now log in to Nova Wallet",
-        variant: "default",
+        variant: "default", 
       });
       router.push("/signin");
-    } catch (error: any) {
-      console.error("Signup error:", error.response?.data || error.message);
-      toast({
-        title: "Signup Failed",
-        description: error.response?.data?.message || "An unexpected error occurred",
-        variant: "destructive",
-      });
+    } catch (error) {
+      // Type guard to check if error is an AxiosError
+      if (error instanceof AxiosError) {
+        console.error("Signup error:", error.response?.data || error.message);
+        toast({
+          title: "Signup Failed",
+          description: error.response?.data?.message || "An unexpected error occurred",
+          variant: "destructive",
+        });
+      } else {
+        // Handle other types of errors
+        console.error("Unexpected error:", error);
+        toast({
+          title: "Signup Failed",
+          description: "An unexpected error occurred",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsLoading(false);
     }

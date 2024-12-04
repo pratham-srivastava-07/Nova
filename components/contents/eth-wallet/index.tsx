@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FaEye, FaEyeSlash, FaPlusCircle, FaTrash } from "react-icons/fa";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@radix-ui/react-accordion";
+import { AxiosError } from "axios";
 
 export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
   const [index, setIndex] = useState(0);
@@ -44,11 +45,13 @@ export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
         variant: "default"
       });
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to generate wallet",
-        variant: "destructive"
-      });
+        if(error instanceof AxiosError) {
+          toast({
+            title: "Error",
+            description: "Failed to generate wallet",
+            variant: "destructive"
+          });
+        }
     }
   };
 
@@ -112,7 +115,7 @@ export const EthWallet = ({ mnemonic }: { mnemonic: string }) => {
       <CardContent>
         {wallets.length === 0 ? (
           <div className="text-center text-gray-500 py-4">
-            No wallets generated yet. Click "Add Wallet" to start.
+            No wallets generated yet. Click &quot;Add Wallet&quot; to start.
           </div>
         ) : (
           <Accordion type="single" collapsible className="space-y-3">
