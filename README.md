@@ -58,8 +58,6 @@ const solAddress = wallet.generateSolAddress();
 ## 📱 Supported Platforms
 
 - Web Application
-- iOS App
-- Android App
 - Desktop (macOS, Windows, Linux)
 
 ## 🔄 Roadmap
